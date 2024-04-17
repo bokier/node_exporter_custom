@@ -6,8 +6,8 @@ import (
 )
 
 func main() {
-	r := gin.New()
-
+	r := gin.Default()
 	r.GET("/health", router.CheckHealth)
+	r.GET("/metrics", router.PrometheusHandler())
 	_ = r.Run(":18080")
 }
