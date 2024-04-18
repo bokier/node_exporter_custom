@@ -9,6 +9,10 @@ type loadAvgCollector struct {
 	metrics []TypedDesc
 }
 
+func init() {
+	registerCollector("loadavg", NewLoadAvgCollector)
+}
+
 func NewLoadAvgCollector() (Collector, error) {
 	return &loadAvgCollector{
 		metrics: []TypedDesc{

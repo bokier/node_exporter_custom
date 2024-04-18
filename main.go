@@ -5,9 +5,13 @@ import (
 	"node_exporter_custom/src/router"
 )
 
-func main() {
+func Router() {
 	r := gin.Default()
 	r.GET("/health", router.CheckHealth)
 	r.GET("/metrics", router.PrometheusHandler())
 	_ = r.Run(":18080")
+}
+
+func main() {
+	Router()
 }
