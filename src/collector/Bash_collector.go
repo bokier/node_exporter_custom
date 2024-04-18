@@ -32,11 +32,3 @@ func InitBashCollector() {
 func (b *BashCollector) Update(ch chan<- prometheus.Metric) error {
 	return nil
 }
-
-//func init() {
-//	registerCollector("cunstom", NewLoadAvgCollector)
-//}
-
-//func NewBashCollector() (Collector, error) {
-//
-//}
