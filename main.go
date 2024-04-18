@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"node_exporter_custom/src/bash"
+	"node_exporter_custom/src/collector"
 	"node_exporter_custom/src/core"
 	"node_exporter_custom/src/router"
 )
@@ -21,9 +21,11 @@ func init() {
 	if err != nil {
 		return
 	}
+	fmt.Println("[init] init viper..")
 }
 
 func main() {
-	fmt.Println("version:", bash.Conf.Version)
+	collector.InitBashCollector()
+	//fmt.Println("version:", bash.Conf.Version)
 	Router()
 }

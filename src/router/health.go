@@ -16,6 +16,6 @@ func CheckHealth(ctx *gin.Context) {
 // CheckVersion 获取版本
 func CheckVersion(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{
-		"version": bash.Conf.Version,
+		"version": bash.Conf.Metrics,
 	})
 }

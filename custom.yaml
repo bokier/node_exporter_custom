@@ -4,3 +4,8 @@ nodeName: "custom_node01"
 nodeIP: "192.168.0.1"
 version: "v0.0.2"
 metricsEnable: true
+
+metrics:
+  cpu: "cat /Users/bowenzhao/Documents/metrics.txt |grep cpuCore |awk '{print $2}'"
+  mem: "cat /Users/bowenzhao/Documents/metrics.txt |grep memFree |awk '{print $2}'"
+  file: "sh /Users/bowenzhao/Documents/metrics.sh"
