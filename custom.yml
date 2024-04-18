@@ -1,8 +1,0 @@
-app:
-  name: node_exporter_custom
-  port: 22014
-  nodeName: custom_node01
-  nodeIP: 192.168.0.1
-
-metrics:
-  # 这里是监控指标

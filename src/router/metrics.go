@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/prometheus/client_golang/prometheus"
-	promcollectors "github.com/prometheus/client_golang/prometheus/collectors"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/prometheus/common/version"
 	"net/http"
@@ -21,13 +20,6 @@ type handler struct {
 func newHandler() *handler {
 	h := &handler{
 		exporterMetricsRegistry: prometheus.NewRegistry(),
-	}
-
-	if h.includeExporterMetrics {
-		h.exporterMetricsRegistry.MustRegister(
-			promcollectors.NewProcessCollector(promcollectors.ProcessCollectorOpts{}),
-			promcollectors.NewGoCollector(),
-		)
 	}
 	if innerHandler, err := h.innerHandler(); err != nil {
 		panic(fmt.Sprintf("Couldn't create metrics handler: %s", err))
@@ -89,7 +81,6 @@ func (h *handler) innerHandler(filters ...string) (http.Handler, error) {
 			},
 		)
 	}
-
 	return handler, nil
 }
 

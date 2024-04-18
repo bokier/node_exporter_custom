@@ -35,5 +35,6 @@ func (l *loadAvgCollector) Update(ch chan<- prometheus.Metric) error {
 }
 
 func (l *loadAvgCollector) getLoad() ([]float64, error) {
+	// 这里是固定数据，可以自定义处理逻辑
 	return []float64{1.1, 1.3, 1.5}, nil
 }
