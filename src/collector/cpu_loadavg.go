@@ -24,7 +24,7 @@ func NewLoadAvgCollector() (Collector, error) {
 }
 
 func (l *loadAvgCollector) Update(ch chan<- prometheus.Metric) error {
-	loads, err := getLoad()
+	loads, err := l.getLoad()
 	if err != nil {
 		fmt.Println("[error] not find cpu load: ", err)
 	}
@@ -34,6 +34,6 @@ func (l *loadAvgCollector) Update(ch chan<- prometheus.Metric) error {
 	return nil
 }
 
-func getLoad() ([]float64, error) {
+func (l *loadAvgCollector) getLoad() ([]float64, error) {
 	return []float64{1.1, 1.3, 1.5}, nil
 }

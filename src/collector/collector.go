@@ -14,7 +14,6 @@ var (
 	initiatedCollectorsMtx = sync.Mutex{}
 	initiatedCollectors    = make(map[string]Collector)
 	collectorState         = make(map[string]bool)
-	forcedCollectors       = map[string]bool{}
 )
 
 const namespace = "node_custom"
@@ -95,11 +94,8 @@ func (t *TypedDesc) mustNewConstMetric(value float64, labels ...string) promethe
 }
 
 func execute(name string, c Collector, ch chan<- prometheus.Metric) {
-	//begin := time.Now()
 	err := c.Update(ch)
-	//duration := time.Since(begin)
-	//var success float64
-	fmt.Printf("[error] %v\n", err)
-	//ch <- prometheus.MustNewConstMetric(scrapeDurationDesc, prometheus.GaugeValue, duration.Seconds(), name)
-	//ch <- prometheus.MustNewConstMetric(scrapeSuccessDesc, prometheus.GaugeValue, success, name)
+	if err != nil {
+		fmt.Println("[error] find a error in update ", name)
+	}
 }

@@ -18,11 +18,11 @@ type handler struct {
 	includeExporterMetrics  bool
 }
 
-func newHandler(includeExporterMetrics bool) *handler {
+func newHandler() *handler {
 	h := &handler{
 		exporterMetricsRegistry: prometheus.NewRegistry(),
-		includeExporterMetrics:  includeExporterMetrics,
 	}
+
 	if h.includeExporterMetrics {
 		h.exporterMetricsRegistry.MustRegister(
 			promcollectors.NewProcessCollector(promcollectors.ProcessCollectorOpts{}),
@@ -38,20 +38,8 @@ func newHandler(includeExporterMetrics bool) *handler {
 }
 
 func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	filters := r.URL.Query()["collect[]"]
-	if len(filters) == 0 {
-		// No filters, use the prepared unfiltered handler.
-		h.unfilteredHandler.ServeHTTP(w, r)
-		return
-	}
-	// To serve filtered metrics, we create a filtering handler on the fly.
-	filteredHandler, err := h.innerHandler(filters...)
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte(fmt.Sprintf("Couldn't create filtered metrics handler: %s", err)))
-		return
-	}
-	filteredHandler.ServeHTTP(w, r)
+	h.unfilteredHandler.ServeHTTP(w, r)
+	return
 }
 
 func (h *handler) innerHandler(filters ...string) (http.Handler, error) {
@@ -67,7 +55,7 @@ func (h *handler) innerHandler(filters ...string) (http.Handler, error) {
 		}
 		sort.Strings(collectors)
 		for _, c := range collectors {
-			fmt.Println("[info-] collector is ", c)
+			fmt.Println("[info] collector is ", c)
 		}
 	}
 
@@ -106,7 +94,7 @@ func (h *handler) innerHandler(filters ...string) (http.Handler, error) {
 }
 
 func PrometheusHandler() gin.HandlerFunc {
-	h := newHandler(false)
+	h := newHandler()
 	return func(ctx *gin.Context) {
 		h.ServeHTTP(ctx.Writer, ctx.Request)
 	}
