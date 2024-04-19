@@ -6,6 +6,4 @@ version: "v0.0.2"
 metricsEnable: true
 
 metrics:
-  cpu: "cat /Users/bowenzhao/Documents/metrics.txt |grep cpuCore |awk '{print $2}'"
-  mem: "cat /Users/bowenzhao/Documents/metrics.txt |grep memFree |awk '{print $2}'"
-  file: "sh /Users/bowenzhao/Documents/metrics.sh"
+  disk_free: "sh /Users/bowenzhao/Documents/metrics.sh"

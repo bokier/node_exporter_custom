@@ -26,6 +26,5 @@ func init() {
 
 func main() {
 	collector.InitBashCollector()
-	//fmt.Println("version:", bash.Conf.Version)
 	Router()
 }
