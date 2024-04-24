@@ -37,6 +37,7 @@ func InitBashCollector() {
 		r, err := cmd.Output()
 		if err != nil {
 			fmt.Println("命令行出错: ", err)
+			return
 		}
 		// 需要判断结果的行数，并排除空行
 		lineList := bash.PublicModule().YamlFileProcessNull(r)
@@ -60,8 +61,8 @@ func metricsDataGeneration(s []string) {
 
 		//将bash返回的结果进行结构化
 		b[resSplit[4]] = &BashResultData{
-			Name:        resSplit[2],
-			FqName:      resSplit[4],
+			Name: resSplit[2],
+			//FqName:      resSplit[4],
 			Help:        resSplit[3],
 			Metrics:     bash.PublicModule().StrToFloat64(resSplit[5]),
 			LabelsKey:   k,

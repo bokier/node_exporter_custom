@@ -44,7 +44,10 @@ func NewNodeCollector(filters ...string) (*NodeCollector, error) {
 	initiatedCollectorsMtx.Lock()
 	defer initiatedCollectorsMtx.Unlock()
 
-	collectorState["loadavg"] = true
+	//collectorState["loadavg"] = true
+	// 注意这个地方，如果设置了没有的名称，会有错误
+	collectorState["user"] = true
+	collectorState["bash"] = true
 
 	for key, enabled := range collectorState {
 		if !enabled || (len(f) > 0 && !f[key]) {

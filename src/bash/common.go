@@ -36,6 +36,11 @@ func (p PublicProcessModule) StrToFloat64(s string) float64 {
 	return res
 }
 
+// IntToFloat64 将int类型转换成float64
+func (p PublicProcessModule) IntToFloat64(i int) float64 {
+	return float64(i)
+}
+
 // StringToSplit string 切割，传入string和分割符号
 func (p PublicProcessModule) StringToSplit(str string, s string) []string {
 	return strings.Split(str, s)
@@ -64,8 +69,3 @@ func (p PublicProcessModule) stringLabelsKv(str string) (k string, v string) {
 	res := p.StringToSplit(str, splitStr)
 	return res[0], res[1]
 }
-
-//// StringListToString 将
-//func (p PublicProcessModule) StringListToString(strList []string) string {
-//
-//}

@@ -5,13 +5,19 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 )
 
+/*
+	参考 参考 参考
+	这里是参考文件, 正常修改这个文件就行。
+	注意：init()需要打开，我这里已经关闭
+*/
+
 type loadAvgCollector struct {
 	metrics []TypedDesc
 }
 
-func init() {
-	registerCollector("loadavg", NewLoadAvgCollector)
-}
+//func init() {
+//	registerCollector("loadavg", NewLoadAvgCollector)
+//}
 
 func NewLoadAvgCollector() (Collector, error) {
 	return &loadAvgCollector{
