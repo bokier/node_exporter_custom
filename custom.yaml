@@ -6,4 +6,4 @@ version: "v0.0.2"
 metricsEnable: true
 
 metrics:
-  disk_free: "sh /Users/bowenzhao/Documents/metrics.sh"
+  disk_free: "sh /Users/bowenzhao/Desktop/goProject/devops/2024/node_exporter_custom/scripts/metrics.sh"

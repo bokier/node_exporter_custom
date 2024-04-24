@@ -11,6 +11,3 @@ type Config struct {
 	MetricsEnable bool              `mapstructure:"metricsEnable"`
 	Metrics       map[string]string `mapstructure:"metrics"`
 }
-
-type MetricsConfig struct {
-}
