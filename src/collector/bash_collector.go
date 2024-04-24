@@ -31,8 +31,7 @@ var BashData BashResult
 
 func InitBashCollector() {
 
-	for k, c := range bash.Conf.Metrics {
-		fmt.Println("[info] colletor ", k)
+	for _, c := range bash.Conf.Metrics {
 
 		cmd := exec.Command("sh", "-c", c) // 命令接收
 		r, err := cmd.Output()
@@ -54,7 +53,6 @@ func metricsDataGeneration(s []string) {
 	b := make(map[string]*BashResultData)
 
 	for i := 0; i < len(s); i++ {
-
 		resSplit := bash.PublicModule().StringToSplit(s[i], "@")
 		labelsList := bash.PublicModule().StringToSplit(resSplit[1], ",")
 

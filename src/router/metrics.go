@@ -87,6 +87,7 @@ func (h *handler) innerHandler(filters ...string) (http.Handler, error) {
 func PrometheusHandler() gin.HandlerFunc {
 	h := newHandler()
 	return func(ctx *gin.Context) {
+		collector.InitBashCollector() // 让手动请求就会执行收集任务，否则一直是第一个数据
 		h.ServeHTTP(ctx.Writer, ctx.Request)
 	}
 }
