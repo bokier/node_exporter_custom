@@ -3,7 +3,8 @@ port: 20240
 nodeName: "custom_node01"
 nodeIP: "192.168.0.1"
 version: "v0.0.2"
-metricsEnable: true
+apiEnable: false
+bashEnable: true
 
 metrics:
   disk_free: "sh /Users/bowenzhao/Desktop/goProject/devops/2024/node_exporter_custom/scripts/metrics.sh"

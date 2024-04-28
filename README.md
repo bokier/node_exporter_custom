@@ -5,6 +5,9 @@
     实现自定义key和value的指标监控. 初步想法是脚本获取值的方式
     <让prometheus脚本化>
 
+### custom.yaml配置文件说明
+    apiEnable: "true"  // 从api获取指标是否启用[true/false]
+    bashEnable: "true" // 从bash获取指标是否启用[true/false]
 
 ## 二、版本说明
 ### v0.0.1 2024/04/24

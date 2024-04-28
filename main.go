@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"node_exporter_custom/src/bash"
 	"node_exporter_custom/src/collector"
 	"node_exporter_custom/src/core"
 	"node_exporter_custom/src/router"
@@ -25,6 +26,9 @@ func Router() {
 }
 
 func main() {
-	collector.InitBashCollector()
+
+	if bash.Conf.BashEnable {
+		collector.InitBashCollector()
+	}
 	Router()
 }
