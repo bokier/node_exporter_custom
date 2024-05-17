@@ -4,7 +4,7 @@ var Conf *Config
 
 type Config struct {
 	Name       string            `mapstructure:"name"`
-	Port       int               `mapstructure:"port"`
+	Port       string            `mapstructure:"port"`
 	NodeName   string            `mapstructure:"nodeName"`
 	NodeIp     string            `mapstructure:"nodeIp"`
 	Version    string            `mapstructure:"version"`

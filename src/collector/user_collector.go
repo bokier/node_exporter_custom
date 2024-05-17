@@ -3,8 +3,7 @@ package collector
 import (
 	"fmt"
 	"github.com/prometheus/client_golang/prometheus"
-	"net"
-	"node_exporter_custom/src/bash"
+	nes "node_exporter_custom/src/nes"
 	"os/exec"
 	"strings"
 )
@@ -45,25 +44,9 @@ func (u *UserCollector) getLoginUser() float64 {
 
 	// 将输出按换行符分割成行
 	lines := strings.Split(string(output), "\n")
-	return bash.PublicModule().IntToFloat64(len(lines) - 1)
+	return nes.PublicModule().IntToFloat64(len(lines) - 1)
 }
 
 func (u *UserCollector) getMachineIP() string {
-	addrs, err := net.InterfaceAddrs()
-
-	if err != nil {
-		fmt.Println("Error:", err)
-		return "1.1.1.1"
-	}
-
-	for _, addr := range addrs {
-		// 检查地址类型为IP地址，并且不是回环地址
-		if ipnet, ok := addr.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
-			if ipnet.IP.To4() != nil {
-				//fmt.Println("服务器IP地址:", ipnet.IP.String())
-				return ipnet.IP.String()
-			}
-		}
-	}
-	return "2.2.2.2"
+	return nes.Conf.NodeIp
 }

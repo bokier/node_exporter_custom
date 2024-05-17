@@ -3,7 +3,7 @@ package collector
 import (
 	"fmt"
 	"github.com/prometheus/client_golang/prometheus"
-	"node_exporter_custom/src/bash"
+	nes "node_exporter_custom/src/nes"
 	"os/exec"
 )
 
@@ -16,8 +16,8 @@ type BashCollector struct {
 }
 
 type BashResultData struct {
-	Name        string // 在这里唯一用来代替FqName
-	FqName      string
+	Name        string   // 在这里唯一用来代替FqName
+	ValueType   []string // 数据类型 prometheus.valueType
 	Help        string   // 帮助信息
 	LabelsKey   []string // labels中的key值
 	LabelsValue []string // labels中的value值
@@ -31,7 +31,7 @@ var BashData BashResult
 
 func InitBashCollector() {
 
-	for _, c := range bash.Conf.Metrics {
+	for _, c := range nes.Conf.Metrics {
 
 		cmd := exec.Command("sh", "-c", c) // 命令接收
 		r, err := cmd.Output()
@@ -40,7 +40,7 @@ func InitBashCollector() {
 			return
 		}
 		// 需要判断结果的行数，并排除空行
-		lineList := bash.PublicModule().YamlFileProcessNull(r)
+		lineList := nes.PublicModule().YamlFileProcessNull(r)
 		metricsDataGeneration(lineList)
 
 	}
@@ -54,17 +54,17 @@ func metricsDataGeneration(s []string) {
 	b := make(map[string]*BashResultData)
 
 	for i := 0; i < len(s); i++ {
-		resSplit := bash.PublicModule().StringToSplit(s[i], "@")
-		labelsList := bash.PublicModule().StringToSplit(resSplit[1], ",")
+		resSplit := nes.PublicModule().StringToSplit(s[i], "@")
+		labelsList := nes.PublicModule().StringToSplit(resSplit[1], ",")
 
-		k, v := bash.PublicModule().MetricsLabelsHandle(labelsList)
+		k, v := nes.PublicModule().MetricsLabelsHandle(labelsList)
 
 		//将bash返回的结果进行结构化
 		b[resSplit[4]] = &BashResultData{
 			Name: resSplit[2],
 			//FqName:      resSplit[4],
 			Help:        resSplit[3],
-			Metrics:     bash.PublicModule().StrToFloat64(resSplit[5]),
+			Metrics:     nes.PublicModule().StrToFloat64(resSplit[5]),
 			LabelsKey:   k,
 			LabelsValue: v,
 		}

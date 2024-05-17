@@ -1,7 +1,7 @@
 package collector
 
 import (
-	"node_exporter_custom/src/bash"
+	nes "node_exporter_custom/src/nes"
 	"reflect"
 	"testing"
 )
@@ -9,7 +9,7 @@ import (
 func TestMetricsLabelsHandle(t *testing.T) {
 	strList := []string{"nodeName=192.168.0.100", "serverName=diskMetrics", "from=zbwyy", "disk_free=/dev/sda"}
 
-	k, v := bash.PublicModule().MetricsLabelsHandle(strList)
+	k, v := nes.PublicModule().MetricsLabelsHandle(strList)
 	key := []string{"nodeName", "serverName", "from", "disk_free"}
 	value := []string{"192.168.0.100", "diskMetrics", "zbwyy", "/dev/sda"}
 
